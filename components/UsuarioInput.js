@@ -1,53 +1,65 @@
-import React, {useState} from 'react';
-import {View, TextInput, Button, StyleSheet} from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { useDispatch } from 'react-redux';
+import * as usuariosActions from '../store/usuarios-actions'
+import TiraFoto from './TiraFoto';
 
 const UsuarioInput = (props) => {
-    const [nome, setNome] = useState('');
 
-    const [telefone, setTelefone] = useState('');
+  const dispatch = useDispatch();
 
-    const capturarNome = (nome) => {
-        setNome(nome);
-    }
+  const [nome, setNome] = useState('');
+  const [telefone, setTelefone] = useState('');
+  const [imagemURI, setImagemURI] = useState();
 
-    const capturarTelefone = (telefone) => {
-        setTelefone(telefone);
-    }
+  const capturarNome = (nome) => { setNome(nome); }
 
-    return (
+  const capturarTelefone = (telefone) => { setTelefone(telefone); }
+
+  const fotoTirada = imagemURI => {
+    setImagemURI(imagemURI);
+  }
+
+  const adicionarUsuarioInput = () => {
+    console.log("Nome: " + nome + " " + "\nTelefone: " + telefone);
+    dispatch(usuariosActions.addUsuario(nome, telefone, imagemURI));
+  }
+
+  return (
     <View style={styles.tela}>
-    <TextInput 
-      placeholder="Nome..."
-      style={styles.form}
-      onChangeText={capturarNome}
-      value={nome}
-    />
-    <TextInput 
-      placeholder="Telefone..."
-      style={styles.form}
-      onChangeText={capturarTelefone}
-      value={telefone}
-    />
-    <Button 
-      title="+"
-      onPress={() => {props.onAdicionarUsuario(nome, telefone)}}
-    />
+      <TextInput
+        placeholder="Nome..."
+        style={styles.form}
+        onChangeText={capturarNome}
+        value={nome}
+      />
+      <TextInput
+        placeholder="Telefone..."
+        style={styles.form}
+        onChangeText={capturarTelefone}
+        value={telefone}
+      />
+      <TiraFoto onFotoTirada={fotoTirada} />
+      <Button
+        title="+"
+        onPress={adicionarUsuarioInput}
+      />
     </View>
-    );
+  );
 }
 
 const styles = StyleSheet.create({
-    tela:{
-      flexDirection: 'row',
-      marginBottom: 6,
-      justifyContent: 'space-between',
-      alignItems: 'center'
-    },
-    form: { 
-      padding: 2,
-      marginBottom: 2,
-      borderBottomColor: 'black'
-    }
+  tela: {
+    flexDirection: 'row',
+    marginBottom: 6,
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  form: {
+    padding: 2,
+    marginBottom: 2,
+    borderBottomColor: 'black'
+  }
 })
 
 

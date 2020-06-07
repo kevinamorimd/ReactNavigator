@@ -6,7 +6,7 @@ import cores from '../cores/cores';
 
 const BotaoCabecalho = (props) => {
     return (
-        <headerButton 
+        <HeaderButton 
             {...props}
             IconComponent={Ionicons}
             iconSize={23}

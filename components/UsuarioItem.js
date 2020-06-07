@@ -4,7 +4,7 @@ import Cartao from './Cartao';
 
 const UsuarioItem = (props) => {
     
-    //const[retornaUsuario, setRetornarUsuario] = useState(false);
+
 
     const confirmaDelete = () => {
 
@@ -35,8 +35,6 @@ const UsuarioItem = (props) => {
         props.onSelecionaEditarTelaUsuario();
     }
 
-    console.log("Propriedades " + props.nome + props.telefone)
-
     const[nome, setNome] = useState();
     const[telefone,setTelefone] = useState();
 
@@ -47,10 +45,8 @@ const UsuarioItem = (props) => {
                     confirmaDelete
             }
             onPress={() => {
-                    /* props.onSelecionaUsuarioId(props.chave); */
-                    /* props.onSelecionaUsuarioNome(props.nome);
-                    props.onSelecionaUsuarioTelefone(props.telefone); */
-                    console.log("Propriedades dentro do onpress" + props.nome + props.telefone)
+                   
+                    console.log("Propriedades dentro do onpress" + props)
 
                     props.onSelect();
                 } 

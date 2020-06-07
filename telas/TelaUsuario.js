@@ -1,5 +1,5 @@
 import React, { useRef , useState} from 'react';
-import {View, Text, StyleSheet, Button, TextInput, Keyboard} from 'react-native';
+import {View, Text, StyleSheet, Image, Keyboard} from 'react-native';
 import Cartao from '../components/Cartao';
 
 const TelaUsuario = (props) => {
@@ -29,14 +29,21 @@ const TelaUsuario = (props) => {
         props.onEditarTelaInicio();
     }
     
+    console.log("URI : " + props.navigation.state.params.imagem)
 
+    
     return (
         <View styles={estilos.telaView}>
             <Text style={estilos.titulo}>Perfil do usuario</Text>
                 <Cartao estilos={estilos.telaView}>
                     <Text style={estilos.txtForm}>Nome: {props.navigation.state.params.nome}</Text>
                     <Text style={estilos.txtForm}>Telefone: {props.navigation.state.params.telefone}</Text>
-                </Cartao>
+                    <Image 
+                        style={estilos.imagem}
+                        source={{uri : props.navigation.state.params.imagem}}
+                    />
+                    </Cartao>
+                {}
         </View>
       );
 }
@@ -68,6 +75,10 @@ const estilos = StyleSheet.create({
         borderBottomColor: 'black',
         alignItems: 'center',
         margin: 10,
+    },
+    imagem: {
+        width: '100%',
+        height: '70%'
     }
 });
 
