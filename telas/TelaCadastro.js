@@ -1,34 +1,47 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, FlatList, Keyboard, Platform} from 'react-native';
+import React, { useEffect } from 'react';
+import { View, StyleSheet, FlatList, Keyboard, Platform } from 'react-native';
 import UsuarioInput from '../components/UsuarioInput';
 import UsuarioItem from '../components/UsuarioItem';
-import { useDispatch } from 'react-redux';
 import * as usuariosActions from '../store/usuarios-actions'
-import {useSelector} from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 const TelaCadastro = (props) => {
 
-
     const usuarios = useSelector(estado => estado.usuarios.usuarios);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(usuariosActions.buscarUsuario())
+    }, [dispatch]);
 
     return (
         <View style={estilos.tela}>
-            <UsuarioInput/>
+            <UsuarioInput />
             <FlatList
-            data={usuarios}
-            keyExtractor={usuario=>usuario.id}
-            renderItem={
-                usuario => (
-                <UsuarioItem
-                    nome={usuario.item.nome}
-                    telefone={usuario.item.telefone}
-                    onSelect={
-                        () => {props.navigation.navigate("DetalheDoUsuario", {nome: usuario.item.nome, telefone: usuario.item.telefone, imagem: usuario.item.imagemURI})}
-                    }
-                    imagem={null}
-                />
-                )          
-            }
+                data={usuarios}
+                keyExtractor={usuario => usuario.id}
+                renderItem={
+                    usuario => (
+                        <UsuarioItem
+                            nome={usuario.item.nome}
+                            telefone={usuario.item.telefone}
+
+                            onSelect={
+                                () => {
+                                    props.navigation.navigate("DetalheDoUsuario",
+                                        {
+                                            nome: usuario.item.nome,
+                                            telefone: usuario.item.telefone,
+                                            imagem: usuario.item.imagemURI,
+                                            latitude: usuario.item.latitude,
+                                            longitude: usuario.item.longitude
+                                        })
+                                }
+                            }
+                            imagem={null}
+                        />
+                    )
+                }
             />
         </View>
     );
@@ -42,7 +55,7 @@ TelaCadastro.navigationOptions = dadosNav => {
 
 const estilos = StyleSheet.create({
     tela: {
-        padding: 25
+        padding: 25,
     }
 })
 

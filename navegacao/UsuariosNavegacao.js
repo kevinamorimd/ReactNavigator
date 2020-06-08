@@ -4,13 +4,11 @@ import { Platform } from "react-native";
 import Cores from '../cores/cores'
 import TelaCadastro from "../telas/TelaCadastro";
 import TelaUsuario from "../telas/TelaUsuario";
-import TelaInicial from "../telas/TelaInicial";
 
 
 const UsuariosNavegacao = createStackNavigator(
-    {   
-        Inicio: TelaInicial,
-        Usuario: TelaCadastro,
+    {
+        Usuarios: TelaCadastro,
         DetalheDoUsuario: TelaUsuario
     },
     {
